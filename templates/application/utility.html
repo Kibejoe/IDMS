@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,21 +11,35 @@
 <body>
 <form method="post" action="">
   {% csrf_token %}
-  
+
   {% for field in form %}
-    <div class="mb-3">
-      {{ field.label_tag }}
-      {{ field }}
-      {% if field.errors %}
-        <div class="text-danger small">
-          {{ field.errors }}
-        </div>
-      {% endif %}
-    </div>
+    {% if field.name == "other_utility_name" %}
+      <div class="mb-3" id="other-field" style="display: none;">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.errors %}
+          <div class="text-danger small">
+            {{ field.errors }}
+          </div>
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="mb-3">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.errors %}
+          <div class="text-danger small">
+            {{ field.errors }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
   {% endfor %}
 
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+<script src="{% static 'manufacturers/script.js' %}"></script>
 
 </body>
 </html>
